@@ -1,19 +1,24 @@
 #!/bin/bash
-function check()
-{
+
+function check(){
 	flag=0
-	for $check in $(ls)
+
+	for check1 in $(ls)
 	do 
-		if [[ $check -eq $orgdir ]] 
+		if [[ $check1 == $1 ]] 
 		then 
 			flag=1
 		fi
 	done
-	if [[ $flag == 1 ]]
+
+	if [[ $flag -eq 1 ]]
 	then
 		return 1
+		# echo 1
+		
 	else
 		return 0
+		# echo 0
 	fi
 }
 
@@ -33,7 +38,7 @@ cd $back_position
 
 input=0
 while [ $input -le 6 ]
-
+check
 do
 	echo "Press the following to :"
 	echo "1) Create a new directory."
@@ -58,9 +63,12 @@ do
 			echo " "
 			echo "Enter the directory to be modified:"
 			read orgdir
-			
+			check $orgdir
+			#out=$(check $orgdir)     METHOD-1
+			out=$?			# METHOD-2
 
-			if [[ check == 1 ]]
+			echo "----------------------------"
+			if [[ $out == 1 ]]
 			then
 				echo "Press the following to :"
 				echo " "
