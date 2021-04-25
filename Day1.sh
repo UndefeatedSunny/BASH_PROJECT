@@ -38,7 +38,7 @@ cd $back_position
 
 input=0
 while [ $input -le 6 ]
-check
+
 do
 	echo "Press the following to :"
 	echo "1) Create a new directory."
@@ -92,16 +92,36 @@ do
 					echo " "
 					echo "Enter target directory:"
 					read target
-					mkdir $target
-					cp $orgdir $target
+
+					check $target
+					value=$?
+
+					if [[ $value == 1 ]]    # Removing Compiler Error i.e. ALREADY PRESENCE OF DIRECTORY
+					then
+						echo "DIRECTORY Already EXISTS, Just Copying it"
+					else
+						mkdir $target
+					fi
+
+					cp -r $orgdir $target 	# Perform Copy Operations
 					;;
 					3) echo " "
 					echo "++++++++++----------Moving a directory----------++++++++++"
 					echo " "
 					echo "Enter target directory:"
 					read target
-					mkdir $target
-					mv $orgdir $target
+
+					check $target
+					value=$?
+
+					if [[ $value == 1 ]]    # Removing Compiler Error i.e. ALREADY PRESENCE OF DIRECTORY
+					then
+						echo "DIRECTORY Already EXISTS, Just Moving it"
+					else
+						mkdir $target
+					fi
+					rm -r $target/$orgdir
+					mv -f $orgdir $target
 					;;
 					4) echo " "
 					echo "++++++++++----------Deleting a directory----------++++++++++"
@@ -169,7 +189,7 @@ do
     		2) echo " "
     		echo "++++++++++----------Detailed List of directories----------++++++++++"
     		echo " "
-    		ls -l
+    		ls -lh
     		;;
     		3) echo " "
     		echo "++++++++++----------Exiting from List Mode----------++++++++++"
