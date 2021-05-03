@@ -69,9 +69,9 @@ input=0
 while [ $input -le 9 ]
 
 do
-	echo -e "\e[1;31m                             Press the following to : \e[0m"
+	echo -e "\e[1;31m                                Press the following to : \e[0m"
 	echo -e "\e[1;32m 1) Create a new Directory/File. \e[0m"
-	echo -e "\e[1;33m 2) Modify a directory. \e[0m"
+	echo -e "\e[1;33m 2) Modify a Directory/File. \e[0m"
 	echo -e "\e[1;34m 3) Navigate into Directory. \e[0m"
 	echo -e "\e[1;35m 4) Listing directories. \e[0m"
 	echo -e "\e[1;36m 5) Track Everything.  \e[0m"
@@ -96,7 +96,7 @@ do
 				mkdir $name
 				echo " "
 				echo " "
-				echo -e "\e[1;32m DIRECTORY Created. \e[0m"
+				echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
 				echo " "
 			else
 				echo " "
@@ -108,7 +108,7 @@ do
 				touch $name
 				echo " "
 				echo " "
-				echo -e "\e[1;32m FILE Created. \e[0m"
+				echo -e "\e[1;32m FILE $name Created. \e[0m"
 				echo " "
 			fi
 		    ;;
@@ -478,9 +478,11 @@ do
 		echo " "
 		if [[ $want == 1 ]]
 		then
-    			find $position -type d -iname "*$search*"
+    			find $position -type d -iname "*$search*" > half_search_dir
+			search_color_match half_search_dir $search
 		else
-			find $position -type f -iname "*$search*"
+			find $position -type f -iname "*$search*" > half_search_file
+			search_color_match half_search_file $search
 		fi
 		echo " "
     		;;
