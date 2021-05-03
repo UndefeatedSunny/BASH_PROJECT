@@ -305,61 +305,62 @@ do
 			;;
 
     		3) echo " "
-    		echo "++++++++++----------Navigation of Directory----------++++++++++"
+    		echo -e "\e[1;35m ++++++++++----------Navigation of Directory----------++++++++++ \e[0m"
     		echo " "
-    		echo "Enter your choice for method of navigation :"
-    		echo "1) Go to Parent Directory. "
-    		echo "2) Navigate to specific directory."
-    		echo "3) Exit from Navigate Mode."
+    		echo -e "\e[1;34m Enter your choice for method of navigation : \e[0m"
+    		echo -e "\e[1;33m 1) Go to Parent Directory.  \e[0m"
+    		echo -e "\e[1;32m 2) Navigate to specific directory. \e[0m"
+    		echo -e "\e[1;31m 3) Exit from Navigate Mode. \e[0m"
     		read navch
     		
     		case $navch in
     			1) echo " "
-    			echo "++++++++++----------Parent Directory----------++++++++++"
+    			echo -e "\e[1;35m ++++++++++----------Parent Directory----------++++++++++ \e[0m"
     			echo " "
     			cd ..
     			pwd
 			echo " "
     			;;
     			2) echo " "
-    			echo "++++++++++----------Navigation to Specific Directory----------++++++++++"
+    			echo -e "\e[1;36m ++++++++++----------Navigation to Specific Directory----------++++++++++ \e[0m"
     			echo " "
     			echo "Enter the target Path:"
     			read path
+			echo " "
     			cd $path
     			pwd
 			echo " "
     			;;
     			3) echo " "
-    			echo "++++++++++----------Exiting from Navigate Mode----------++++++++++"
+    			echo -e "\e[1;30m ++++++++++----------Exiting from Navigate Mode----------++++++++++ \e[0m"
     			echo " "
     			exit
     			;;
     		esac
     	    ;;
     	4) echo " "
-    	echo "++++++++++----------Listing of Directories----------++++++++++"
+    	echo -e "\e[1;30m ++++++++++----------Listing of Directories----------++++++++++ \e[0m"
     	echo " "
-    	echo "Enter your choice for method of listing :"
-    	echo "1) List of directories. "
-    	echo "2) List of directories and their details."
-    	echo "3) Exit from List Mode."
+    	echo -e "\e[1;31m Enter your choice for method of listing : \e[0m"
+    	echo -e "\e[1;32m 1) List of directories.  \e[0m"
+    	echo -e "\e[1;33m 2) List of directories and their details. \e[0m"
+    	echo -e "\e[1;34m 3) Exit from List Mode. \e[0m"
     	read lisch
     		
     	case $lisch in
     		1) echo " "
-    		echo "++++++++++----------List of directories----------++++++++++"
+    		echo -e "\e[1;32m ++++++++++----------List of directories----------++++++++++ \e[0m"
     		echo " "
     		ls
     		;;
     		2) echo " "
-    		echo "++++++++++----------Detailed List of directories----------++++++++++"
+    		echo -e "\e[1;33m ++++++++++----------Detailed List of directories----------++++++++++ \e[0m"
     		echo " "
-    		ls -lh
+    		ls -Alh
 		echo " "
     		;;
     		3) echo " "
-    		echo "++++++++++----------Exiting from List Mode----------++++++++++"
+    		echo -e "\e[1;31m ++++++++++----------Exiting from List Mode----------++++++++++ \e[0m"
     		echo " "
     		exit
     		;;
