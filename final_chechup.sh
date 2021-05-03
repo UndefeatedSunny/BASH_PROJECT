@@ -38,6 +38,8 @@ function search_color_match(){
 		echo -e "\e[1;3"$(($count%8))"m"$i"\e[0m"
 		let count=count+1
 	done
+	echo " "
+	echo " "
 }
 
 ########################################################################################################################################################
@@ -70,6 +72,7 @@ while [ $input -le 9 ]
 
 do
 	echo -e "\e[1;31m                                Press the following to : \e[0m"
+	echo " "
 	echo -e "\e[1;32m 1) Create a new Directory/File. \e[0m"
 	echo -e "\e[1;33m 2) Modify a Directory/File. \e[0m"
 	echo -e "\e[1;34m 3) Navigate into Directory. \e[0m"
@@ -98,6 +101,7 @@ do
 				echo " "
 				echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
 				echo " "
+				echo " "
 			else
 				echo " "
 				echo "++++++++++----------Creation of File----------++++++++++"
@@ -109,6 +113,7 @@ do
 				echo " "
 				echo " "
 				echo -e "\e[1;32m FILE $name Created. \e[0m"
+				echo " "
 				echo " "
 			fi
 		    ;;
@@ -124,8 +129,8 @@ do
 				echo "Enter the directory to be modified:"
 				read orgdir
 				check $orgdir
-				#out=$(check $orgdir)     METHOD-1
-				out=$?			# METHOD-2
+				#out=$(check $orgdir)     							METHOD-1
+				out=$?									      # METHOD-2
 
 				echo "----------------------------"
 				if [[ $out == 1 ]]
@@ -161,7 +166,7 @@ do
 						check $target
 						value=$?
 
-						if [[ $value == 1 ]]    # Removing Compiler Error i.e. ALREADY PRESENCE OF DIRECTORY
+						if [[ $value == 1 ]]    					# Removing Compiler Error i.e. ALREADY PRESENCE OF DIRECTORY
 						then
 							clear
 							echo -e "\e[1;34m DIRECTORY Already EXISTS, Just Copying it \e[0m"
@@ -170,7 +175,7 @@ do
 							echo -e "\e[1;34m COPY Directory from $orgdir to $target \e[0m"
 						fi
 
-						cp -r $orgdir $target 	# Perform Copy Operations
+						cp -r $orgdir $target 						# Perform Copy Operations
 						echo " "
 						;;
 						3) echo " "
@@ -182,7 +187,7 @@ do
 						check $target
 						value=$?
 
-						if [[ $value == 1 ]]    # Removing Compiler Error i.e. ALREADY PRESENCE OF DIRECTORY
+						if [[ $value == 1 ]]    					# Removing Compiler Error i.e. ALREADY PRESENCE OF DIRECTORY
 						then
 							echo -e "\e[1;34m DIRECTORY Already EXISTS, Just Moving it \e[0m"
 						else
@@ -366,16 +371,15 @@ do
 	;;
 
 	6) echo " "
-    	echo "++++++++++----------BACKUP (-_-)----------++++++++++"
+    	echo -e "\e[1;31m ++++++++++----------BACKUP (-_-)----------++++++++++ \e[0m"
     	echo " "
-    	echo "Enter the TYPE of Backup you wanted"
-    	echo "1) BACKUP with same name. "
-    	echo "2) BACKUP with Particular name."
-	echo "3) UPDATE Particular Archieve."
-	echo "4) VIEW the Archieve"
-	echo "5) Extract the Archieve in same Directory"
-	echo "6) Extract the Archieve in Particular Directory"
-    	echo "7) Exit from BACKUP Mode."
+    	echo -e "\e[1;32m Enter the TYPE of Backup you wanted. \e[0m"
+    	echo -e "\e[1;33m 1) BACKUP with same name. \e[0m"
+    	echo -e "\e[1;34m 2) BACKUP with Particular name. \e[0m"
+	echo -e "\e[1;35m 3) UPDATE Particular Archieve. \e[0m"
+	echo -e "\e[1;36m 4) VIEW the Archieve. \e[0m"
+	echo -e "\e[1;37m 5) Extract the Archieve in same Directory. \e[0m"
+	echo -e "\e[1;30m 6) Extract the Archieve in Particular Directory. \e[0m"
     	read bckp
     		
     	case $bckp in
@@ -384,6 +388,12 @@ do
     		echo " "
 		read old
     		tar -cvf $old.tar $old
+				clear
+				echo " "
+				echo " "
+				echo -e "\e[1;32m BACKUP ( $old.tar ) Created. \e[0m"
+				echo " "
+				echo " "
     		;;
     		2) echo " "
     		echo "++++++++++----------Please Specify the Directory/File----------++++++++++"
@@ -393,6 +403,12 @@ do
 		echo "Please provide Backup FileName"
 		read new
 		tar -cvf $new.tar $old
+				clear
+				echo " "
+				echo " "
+				echo -e "\e[1;32m BACKUP ( $new.tar ) Created. \e[0m"
+				echo " "
+				echo " "
     		;;
     		3) echo " "
     		echo "++++++++++----------Please Specify the Directory/File----------++++++++++"
@@ -401,14 +417,24 @@ do
 		echo " "
 		echo "Please provide Particular Archieve Name to UPDATE"
 		read new
-		echo " "
 		tar -rvf $new $old
+				clear
+				echo " "
+				echo " "
+				echo -e "\e[1;32m Update BACKUP ( $old.tar ). \e[0m"
+				echo " "
+				echo " "
     		;;
     		4) echo " "
     		echo "++++++++++----------Please Specify the Archieve NAME----------++++++++++"
     		echo " "
     		read name
-		echo " "
+				clear
+				echo " "
+				echo " "
+				echo -e "\e[1;32m Archieving BACKUP ( $name ). \e[0m"
+				echo " "
+				echo "CONTENTS Included ARE => "
 		tar -tvf $name
 		echo " "
     		;;
@@ -416,6 +442,9 @@ do
     		echo "++++++++++----------Please Specify the Archieve NAME----------++++++++++"
     		echo " "
     		read name
+		clear
+		echo " "
+		echo -e "\e[1;32m Extracting.......... \e[0m"
 		echo " "
 		tar -xvf $name
 		echo " "
@@ -427,13 +456,12 @@ do
 		echo " "
 		echo "Please Specify us the path"
 		read path
+		clear
+		echo " "
+		echo -e "\e[1;32m Extracting.......... \e[0m"
+		echo " "
 		tar -xvf $name -C $path
 		echo " "
-    		;;
-    		7) echo " "
-    		echo "++++++++++----------Exiting from Backup Mode----------++++++++++"
-    		echo " "
-    		exit
     		;;
     		esac
     	;;  
