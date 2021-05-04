@@ -46,7 +46,7 @@ function search_color_match(){
 
 echo " "
 echo " "
-echo "***************  USER EASE MANAGER   *********************"
+echo -e "\e[1;31m***************  USER EASE MANAGER   *********************\e[0m"
 echo " "
 
 ########################################################################################################################################################
@@ -61,6 +61,9 @@ cd ../../../
 back_position=$(cat path)
 
 cd $back_position
+
+
+echo -e "\e[1;33m                                =================>>>>>>>>>>>>>>>        PRESS ANYTHING YOU WILL CAME 1 STEP BACK acc'n to File Manager UI. \e[0m"
 
 ########################################################################################################################################################
 
@@ -91,7 +94,7 @@ do
 			if [[ $number == 1 ]]
 			then 
 				echo " "
-				echo "++++++++++----------Creation of Directory----------++++++++++"
+				echo -e "\e[1;32m++++++++++----------Creation of Directory----------++++++++++ \e[0m"
 				echo " "
 				echo "Enter the name of the Directory:"
 				read name
@@ -102,9 +105,10 @@ do
 				echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
 				echo " "
 				echo " "
-			else
+			elif [[ $number == 2 ]]
+			then
 				echo " "
-				echo "++++++++++----------Creation of File----------++++++++++"
+				echo -e "\e[1;32m++++++++++----------Creation of File----------++++++++++ \e[0m"
 				echo " "
 				echo "Enter the name of the File:"
 				read name
@@ -119,7 +123,7 @@ do
 		    ;;
 
 			2) echo " "
-			echo "++++++++++----------Modification of Directory/File----------++++++++++"
+			echo -e "\e[1;36m++++++++++----------Modification of Directory/File----------++++++++++ \e[0m"
 			echo " "			
 			echo "Please ENTER 1 for DIRECTORY and 2 for FILES"
 			read number
@@ -135,13 +139,13 @@ do
 				echo "----------------------------"
 				if [[ $out == 1 ]]
 				then
-					echo "Press the following to :"
+					echo -e "\e[1;31m Press the following to : \e[0m"
 					echo " "
-					echo "1) Rename directory."
-					echo "2) Copy directory to another."
-					echo "3) Move directory."
-					echo "4) Delete directory."
-					echo "5) Exit from Modify Mode."
+					echo -e "\e[1;33m 1) Rename directory. \e[0m"
+					echo -e "\e[1;32m 2) Copy directory to another. \e[0m"
+					echo -e "\e[1;34m 3) Move directory. \e[0m"
+					echo -e "\e[1;35m 4) Delete directory. \e[0m"
+					echo -e "\e[1;36m 5) Exit from Modify Mode. \e[0m"
 					read modch
 
 					case $modch in
@@ -213,7 +217,8 @@ do
 				else
 					echo "DIRECTORY NOT EXIST"
 				fi
-			else
+			elif [[ $number == 2 ]]
+			then
 				echo " "
 				echo "Enter the FILE to be modified:"
 				read orgdir
@@ -223,13 +228,13 @@ do
 				echo "----------------------------"
 				if [[ $out == 1 ]]
 				then
-					echo "Press the following to :"
+					echo -e "\e[1;31m Press the following to : \e[0m"
 					echo " "
-					echo "1) Rename File."
-					echo "2) Copy contents from ONE file to another."
-					echo "3) Move File."
-					echo "4) Delete File."
-					echo "5) Exit from Modify Mode."
+					echo -e "\e[1;32m 1) Rename File. \e[0m"
+					echo -e "\e[1;33m 2) Copy contents from ONE file to another. \e[0m"
+					echo -e "\e[1;34m 3) Move File. \e[0m"
+					echo -e "\e[1;35m 4) Delete File. \e[0m"
+					echo -e "\e[1;36m 5) Exit from Modify Mode. \e[0m"
 					read modch
 
 					case $modch in
@@ -251,20 +256,48 @@ do
 						echo "Enter target directory:"
 						read target
 
-						check $target
-						value=$?
-
-						if [[ $value == 1 ]]   
-						then
-							clear
-							echo -e "\e[1;34m FILE Already EXISTS, Just Copying it \e[0m"
-						else
-							touch $target
-							echo -e "\e[1;34m COPY FILE from $orgdir to $target \e[0m"
-						fi
-
-						cat $orgdir > $target 
 						echo " "
+						echo "Press 1 to APPEND and 2 to OVERWRITE and then COPY the CONTENTS"
+						echo " "
+						read value
+
+				    		case $value in
+				    			1) echo " "
+								check $target
+								val=$?
+
+								if [[ $val == 1 ]]   
+								then
+									clear
+									echo -e "\e[1;34m FILE Already EXISTS, Just Copying ( APPEND MODE ) it \e[0m"
+								else
+									touch $target
+									echo -e "\e[1;34m COPY FILE from $orgdir to $target \e[0m"
+								fi
+
+								cat $orgdir >> $target 
+								echo " "
+								echo " "
+				    			;;
+				    			2) echo " "
+								check $target
+								val=$?
+
+								if [[ $val == 1 ]]   
+								then
+									clear
+									echo -e "\e[1;34m FILE Already EXISTS, Just Copying ( OVERWRITE MODE ) it \e[0m"
+								else
+									touch $target
+									echo -e "\e[1;34m COPY FILE from $orgdir to $target \e[0m"
+								fi
+
+								cat $orgdir > $target 
+								echo " "
+								echo " "
+							echo " "
+				    			;;
+				    		esac
 						;;
 						3) echo " "
 						echo "++++++++++----------Moving a FILE----------++++++++++"
