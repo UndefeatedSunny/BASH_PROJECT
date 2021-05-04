@@ -234,7 +234,6 @@ do
 					echo -e "\e[1;33m 2) Copy contents from ONE file to another. \e[0m"
 					echo -e "\e[1;34m 3) Move File. \e[0m"
 					echo -e "\e[1;35m 4) Delete File. \e[0m"
-					echo -e "\e[1;36m 5) Exit from Modify Mode. \e[0m"
 					read modch
 
 					case $modch in
@@ -325,11 +324,6 @@ do
 						rm $orgdir
 						echo -e "\e[1;34m DELETED Directory is $orgdir \e[0m"
 						;;
-						5) echo " "
-						echo "++++++++++----------Exiting from modify mode----------++++++++++"
-						echo " "
-						exit
-						;;
 					esac
 				else
 					echo "FILE NOT EXIST"
@@ -343,7 +337,6 @@ do
     		echo -e "\e[1;34m Enter your choice for method of navigation : \e[0m"
     		echo -e "\e[1;33m 1) Go to Parent Directory.  \e[0m"
     		echo -e "\e[1;32m 2) Navigate to specific directory. \e[0m"
-    		echo -e "\e[1;31m 3) Exit from Navigate Mode. \e[0m"
     		read navch
     		
     		case $navch in
@@ -364,11 +357,6 @@ do
     			pwd
 			echo " "
     			;;
-    			3) echo " "
-    			echo -e "\e[1;30m ++++++++++----------Exiting from Navigate Mode----------++++++++++ \e[0m"
-    			echo " "
-    			exit
-    			;;
     		esac
     	    ;;
     	4) echo " "
@@ -377,7 +365,6 @@ do
     	echo -e "\e[1;31m Enter your choice for method of listing : \e[0m"
     	echo -e "\e[1;32m 1) List of directories.  \e[0m"
     	echo -e "\e[1;33m 2) List of directories and their details. \e[0m"
-    	echo -e "\e[1;34m 3) Exit from List Mode. \e[0m"
     	read lisch
     		
     	case $lisch in
@@ -385,6 +372,7 @@ do
     		echo -e "\e[1;32m ++++++++++----------List of directories----------++++++++++ \e[0m"
     		echo " "
     		ls
+		echo " "
     		;;
     		2) echo " "
     		echo -e "\e[1;33m ++++++++++----------Detailed List of directories----------++++++++++ \e[0m"
@@ -392,12 +380,7 @@ do
     		ls -Alh
 		echo " "
     		;;
-    		3) echo " "
-    		echo -e "\e[1;31m ++++++++++----------Exiting from List Mode----------++++++++++ \e[0m"
-    		echo " "
-    		exit
-    		;;
-    		esac
+	esac
     	;;
     	5) echo " "
     	tree
@@ -522,7 +505,8 @@ do
 		then
     			find $position -type d -name $search > full_search_dir
 			search_color_match full_search_dir $search
-		else
+		elif [[ $want == 2 ]]
+		then
 			find $position -type f -name $search > full_search_file
 			search_color_match full_search_file $search
 		fi
@@ -542,7 +526,8 @@ do
 		then
     			find $position -type d -iname "*$search*" > half_search_dir
 			search_color_match half_search_dir $search
-		else
+		elif [[ $want == 2 ]]
+		then
 			find $position -type f -iname "*$search*" > half_search_file
 			search_color_match half_search_file $search
 		fi
