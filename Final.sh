@@ -67,11 +67,59 @@ echo -e "\e[1;33m                                =================>>>>>>>>>>>>>>
 
 ########################################################################################################################################################
 
+#GAME -_-
+
+function game(){
+echo " "
+echo "Press any Button when you completed the above set of Instructions mentioned in UI"
+echo " "
+read n1
+echo " "
+echo "Now, Please Follow my Instructions Guys (-_-) "
+echo " "
+read n2
+echo " "
+echo "Please Assume a Number in between 0-10"
+echo " "
+read n3
+echo " "
+echo "Now, multiply it by 2"
+echo " "
+read n4
+echo " "
+echo "Now, Add 5 into it, I think it's a SIMPLE Mathematics -_-"
+echo " "
+read n5
+echo " "
+echo "Now, multiply it by 50"
+echo " "
+read n6
+echo " "
+echo "Now, if you're already had your BIRTHDAY this year, ADD => 1771, if not, ADD => 1770"
+echo " "
+read n7
+echo " "
+echo "Now, Subtract the year in which you're BORN"
+echo " "
+read n8
+echo " "
+echo "Now, the FIRST DIGIT is your Number and last 2 DIGITS is you're AGE (-_-)"
+echo " "
+read n7
+echo " "
+echo "THANK YOU GUYS -----------________________---------------"
+echo " "
+read n6
+echo " "
+
+}
+
+########################################################################################################################################################
 
 
 
 input=0
-while [ $input -le 9 ]
+while [ $input -le 10 ]
 
 do
 	echo -e "\e[1;31m                                Press the following to : \e[0m"
@@ -84,7 +132,8 @@ do
 	echo -e "\e[1;37m 6) BACKUP -_-. \e[0m"
 	echo -e "\e[1;32m 7) SEARCH \e[0m"
 	echo -e "\e[1;33m 8) DETAILED Information \e[0m"
-	echo -e "\e[1;31m 9) EXIT. \e[0m"
+	echo -e "\e[1;36m 9) GAME.  \e[0m"
+	echo -e "\e[1;31m 10) EXIT. \e[0m"
 	read input
 
 	case $input in
@@ -549,6 +598,12 @@ do
 
     	;;
     	9) echo " "
+	clear
+    	echo -e "\e[0;31m ++++++++++----------WELCOME TO GAME SECTION----------++++++++++\e[0m"
+    	echo " "
+	game
+    	;; 
+    	10) echo " "
     	echo -e "\e[0;31m ++++++++++----------Exiting----------++++++++++\e[0m"
     	echo " "
     	exit
