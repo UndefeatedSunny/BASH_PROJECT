@@ -587,13 +587,14 @@ do
     	8) echo " "
     	echo "++++++++++----------DETAIL Information Section----------++++++++++"
     	echo "Please Enter the name of File/Directory"
-	read file
+	read filee
 	echo " "
 
-	stat $file > data	
+	stat $filee > data	
 
 	# NOW WRITING A AWK FILE FOR THAT
 	clear
+	file $filee
 	awk -f Model_1_1.awk data  # Hence Solved
 
     	;;
@@ -602,6 +603,7 @@ do
     	echo -e "\e[0;31m ++++++++++----------WELCOME TO GAME SECTION----------++++++++++\e[0m"
     	echo " "
 	game
+	clear
     	;; 
     	10) echo " "
     	echo -e "\e[0;31m ++++++++++----------Exiting----------++++++++++\e[0m"
