@@ -8,7 +8,6 @@ BEGIN{
 }
 
 END{
-	print "File Name => " a2[NR-7] 
 	print " "
 	print " "
 	print "Information On Basis of DATE"
@@ -23,6 +22,13 @@ END{
 	print a1[NR-3] " " a3[NR-3]
 	print a1[NR-2] " " a3[NR-2]
 	print a1[NR-1] " " a3[NR-1]
+	print " "
+	print " "
+	print " ===================="
+	print "|   r => Read        |"
+	print "|   w => Write       |"
+	print "|   x => Execute     |"
+	print " ===================="
 	print " "
 	print " "
 	print "CHMOD Number / Permisssions"
