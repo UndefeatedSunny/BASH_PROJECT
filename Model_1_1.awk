@@ -36,7 +36,7 @@ END{
 	print a2[NR-4]
 	print " "
 	print " "
-	print "SIZE"
+	print "SIZE (In Bytes)"
 	print " "
 	print a2[NR-6]
 	print " "
