@@ -29,7 +29,7 @@ function check(){
 function search_color_match(){
 	count=0
 
-	cat $1 | egrep -n $2 > resultant
+	cat $1 | egrep --color -n $2 > resultant
 
 	OFS="\n"
 
@@ -42,6 +42,90 @@ function search_color_match(){
 	echo " "
 }
 
+########################################################################################################################################################
+
+function extraction(){
+
+cat $1 > solve
+
+movement="NAME"
+
+echo " " > NAME.txt
+echo " " > SYNOPSIS.txt
+echo " " > DESCRIPTION.txt
+
+IFS=$'\n'
+
+for i in $(cat solve) 
+	do
+
+		if [[ $i == "SYNOPSIS" ]]
+		then 
+			movement="SYNOPSIS"
+		elif [[ $i == "DESCRIPTION" ]]
+		then 
+			movement="DESCRIPTION"
+		elif [[ $i == "AUTHOR" ||  $i == "REPORTING" || $i == "COPYRIGHT" ]]
+		then 
+			movement=""
+		fi
+
+
+		if [[ $movement == "NAME" ]]
+		then
+			echo $i >> NAME.txt
+		fi
+		
+
+		if [[ $movement == "SYNOPSIS" ]]
+		then
+			echo $i >> SYNOPSIS.txt
+		fi
+
+
+		if [[ $movement == "DESCRIPTION" ]]
+		then
+			echo $i >> DESCRIPTION.txt
+		fi
+
+	done
+}
+
+
+function search_full(){
+
+		echo " "
+		if [[ $1 == 1 ]]
+		then
+			cat NAME.txt > solution.txt
+		elif [[ $1 == 2 ]]
+		then
+			cat SYNOPSIS.txt > solution.txt
+		elif [[ $1 == 3 ]]
+		then
+			cat DESCRIPTION.txt > solution.txt
+		fi
+
+		cat solution.txt | egrep --color -w "$2"
+}
+
+function search_partial(){
+
+		echo " "
+		if [[ $1 == 1 ]]
+		then
+			cat NAME.txt > solution.txt
+		elif [[ $1 == 2 ]]
+		then
+			cat SYNOPSIS.txt > solution.txt
+		elif [[ $1 == 3 ]]
+		then
+			cat DESCRIPTION.txt > solution.txt
+		fi
+
+		cat solution.txt | egrep --color "$2"
+
+}
 ########################################################################################################################################################
 
 echo " "
@@ -119,7 +203,7 @@ echo " "
 
 
 input=0
-while [ $input -le 10 ]
+while [ $input -le 12 ]
 
 do
 	echo -e "\e[1;31m                                Press the following to : \e[0m"
@@ -132,8 +216,10 @@ do
 	echo -e "\e[1;37m 6) BACKUP -_-. \e[0m"
 	echo -e "\e[1;32m 7) SEARCH \e[0m"
 	echo -e "\e[1;33m 8) DETAILED Information \e[0m"
-	echo -e "\e[1;36m 9) GAME.  \e[0m"
-	echo -e "\e[1;31m 10) EXIT. \e[0m"
+	echo -e "\e[1;34m 9) Email. \e[0m"
+	echo -e "\e[1;36m 10) GAME.  \e[0m"
+	echo -e "\e[1;35m 11) HELP. \e[0m"
+	echo -e "\e[1;31m 12) EXIT. \e[0m"
 	read input
 
 	case $input in
@@ -194,7 +280,6 @@ do
 					echo -e "\e[1;32m 2) Copy directory to another. \e[0m"
 					echo -e "\e[1;34m 3) Move directory. \e[0m"
 					echo -e "\e[1;35m 4) Delete directory. \e[0m"
-					echo -e "\e[1;36m 5) Exit from Modify Mode. \e[0m"
 					read modch
 
 					case $modch in
@@ -256,11 +341,6 @@ do
 						echo " "
 						rmdir $orgdir
 						echo -e "\e[1;34m DELETED Directory is $orgdir \e[0m"
-						;;
-						5) echo " "
-						echo "++++++++++----------Exiting from modify mode----------++++++++++"
-						echo " "
-						exit
 						;;
 					esac
 				else
@@ -598,18 +678,70 @@ do
 	awk -f Model_1_1.awk data  # Hence Solved
 
     	;;
+
     	9) echo " "
+	clear
+    	echo -e "\e[0;31m ++++++++++----------WELCOME TO E-mail SECTION----------++++++++++\e[0m"
+    	echo " "
+   	;;
+
+
+    	10) echo " "
 	clear
     	echo -e "\e[0;31m ++++++++++----------WELCOME TO GAME SECTION----------++++++++++\e[0m"
     	echo " "
 	game
 	clear
     	;; 
-    	10) echo " "
+
+    	11) echo " "
+    	echo -e "\e[0;31m ++++++++++----------HELP SECTION----------++++++++++\e[0m"
+    	echo " "
+    	echo "Please Enter the Command you want to know"
+	read cmd
+	man $cmd > extract_data
+	extraction extract_data
+
+	echo " "
+    	echo "++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++"
+    	echo " "
+    	echo "1) NAME "
+    	echo "2) SYNOPSIS"
+	echo "3) DESCRIPTION"
+
+	read option
+
+	echo " "
+    	echo "Choose the type of SEARCHING you want :"
+    	echo "1) EXACT Match "
+    	echo "2) Partially Matched"
+    	read match
+    		
+    	case $match in
+    		1) echo " "
+    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+    		echo " "
+		read search
+		echo " "
+		search_full $option $search
+		echo " "
+    		;;
+    		2) echo " "
+    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+    		echo " "
+		read search
+		echo " "
+		search_partial $option $search
+		echo " "
+    		;;
+		esac
+    	;;  	
+
+   
+    	12) echo " "
     	echo -e "\e[0;31m ++++++++++----------Exiting----------++++++++++\e[0m"
     	echo " "
     	exit
     	;;    	
-    	
     	esac
 done
