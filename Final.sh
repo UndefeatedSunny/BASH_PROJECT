@@ -202,6 +202,21 @@ function search_partially(){
 
 ########################################################################################################################################################
 
+function verification(){
+
+	match=$(echo $1 | egrep -o '^[[:alpha:]]+[^^.]')
+
+	if [[ $1 == $match ]]
+	then 
+		return 1
+	else
+		return 0
+	fi
+
+}
+
+########################################################################################################################################################
+
 echo " "
 echo " "
 echo -e "\e[1;31m***************  USER EASE MANAGER   *********************\e[0m"
@@ -306,13 +321,27 @@ do
 				echo " "
 				echo "Enter the name of the Directory:"
 				read name
-				clear
-				mkdir $name
-				echo " "
-				echo " "
-				echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
-				echo " "
-				echo " "
+
+				verification $name
+				output=$?
+			
+				if [[ $output == 1 ]]
+				then	
+					clear
+					mkdir $name
+					echo " "
+					echo " "
+					echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
+					echo " "
+					echo " "
+				else
+					clear
+					echo " "
+					echo " "
+					echo -e "\e[1;32m DIRECTORY $name NOT Created => [INVALID NAME] -_-\e[0m"
+					echo " "
+					echo " 	"	
+				fi	
 			elif [[ $number == 2 ]]
 			then
 				echo " "
