@@ -314,6 +314,7 @@ do
 			1) echo " "
 			echo "Please ENTER 1 for DIRECTORY and 2 for FILES Creation"
 			read number
+
 			if [[ $number == 1 ]]
 			then 
 				echo " "
@@ -338,10 +339,11 @@ do
 					clear
 					echo " "
 					echo " "
-					echo -e "\e[1;32m DIRECTORY $name NOT Created => [INVALID NAME] -_-\e[0m"
+					echo -e "\e[1;31m DIRECTORY $name NOT Created => [INVALID NAME] -_-\e[0m"
 					echo " "
 					echo " 	"	
-				fi	
+				fi
+	
 			elif [[ $number == 2 ]]
 			then
 				echo " "
@@ -349,13 +351,27 @@ do
 				echo " "
 				echo "Enter the name of the File:"
 				read name
-				clear
-				touch $name
-				echo " "
-				echo " "
-				echo -e "\e[1;32m FILE $name Created. \e[0m"
-				echo " "
-				echo " "
+
+				verification $name
+				output=$?
+			
+				if [[ $output == 1 ]]
+				then	
+					clear
+					touch $name
+					echo " "
+					echo " "
+					echo -e "\e[1;32m FILE $name Created. \e[0m"
+					echo " "
+					echo " "
+				else
+					clear
+					echo " "
+					echo " "
+					echo -e "\e[1;31m FILE $name NOT Created => [INVALID NAME] -_-\e[0m"
+					echo " "
+					echo " 	"	
+				fi
 			fi
 		    ;;
 
@@ -369,6 +385,7 @@ do
 				echo " "
 				echo "Enter the directory to be modified:"
 				read orgdir
+
 				check $orgdir
 				#out=$(check $orgdir)     							METHOD-1
 				out=$?									      # METHOD-2
@@ -376,6 +393,7 @@ do
 				echo "----------------------------"
 				if [[ $out == 1 ]]
 				then
+
 					echo -e "\e[1;31m Press the following to : \e[0m"
 					echo " "
 					echo -e "\e[1;33m 1) Rename directory. \e[0m"
@@ -397,6 +415,7 @@ do
 						echo " "
 						mv $orgdir $newname
 						;;
+
 						2) echo " "
 						echo "++++++++++----------Copying a directory to another----------++++++++++"
 						echo " "
@@ -418,6 +437,7 @@ do
 						cp -r $orgdir $target 						# Perform Copy Operations
 						echo " "
 						;;
+
 						3) echo " "
 						echo "++++++++++----------Moving a directory----------++++++++++"
 						echo " "
@@ -438,16 +458,19 @@ do
 						mv -f $orgdir $target
 						echo " "
 						;;
+
 						4) echo " "
 						echo "++++++++++----------Deleting a directory----------++++++++++"
 						echo " "
 						rmdir $orgdir
 						echo -e "\e[1;34m DELETED Directory is $orgdir \e[0m"
 						;;
+
 					esac
 				else
 					echo "DIRECTORY NOT EXIST"
 				fi
+
 			elif [[ $number == 2 ]]
 			then
 				echo " "
@@ -473,13 +496,29 @@ do
 						echo " "
 						echo "Enter new name for the file:"
 						read newname
-						clear
-						echo " "
-						echo -e "\e[1;32m FILE name changed from $orgdir to $newname \e[0m"
-						echo " "
-						echo " "
-						mv $orgdir $newname
+
+
+						verification $newname
+						output=$?
+					
+						if [[ $output == 1 ]]
+						then	
+							clear
+							echo " "
+							echo -e "\e[1;32m FILE name changed from $orgdir to $newname. \e[0m"
+							echo " "
+							echo " "
+							mv $orgdir $newname
+						else
+							clear
+							echo " "
+							echo " "
+							echo -e "\e[1;31m FILE NOT name changed from $orgdir to $newname.  => [INVALID NAME] -_-\e[0m"
+							echo " " 
+							echo " 	"	
+						fi	
 						;;
+
 						2) echo " "
 						echo "++++++++++----------Copy contents from ONE file to another.----------++++++++++"
 						echo " "
@@ -590,6 +629,7 @@ do
     			;;
     		esac
     	    ;;
+
     	4) echo " "
     	echo -e "\e[1;30m ++++++++++----------Listing of Directories----------++++++++++ \e[0m"
     	echo " "
@@ -613,6 +653,7 @@ do
     		;;
 	esac
     	;;
+
     	5) echo " "
     	tree
     	echo " "
@@ -643,6 +684,7 @@ do
 				echo " "
 				echo " "
     		;;
+
     		2) echo " "
     		echo "++++++++++----------Please Specify the Directory/File----------++++++++++"
     		echo " "
@@ -650,14 +692,29 @@ do
 		echo " "
 		echo "Please provide Backup FileName"
 		read new
-		tar -cvf $new.tar $old
-				clear
-				echo " "
-				echo " "
-				echo -e "\e[1;32m BACKUP ( $new.tar ) Created. \e[0m"
-				echo " "
-				echo " "
+
+		verification $new
+		output=$?
+			
+		if [[ $output == 1 ]]
+		then	
+			tar -cvf $new.tar $old
+			clear
+			echo " "
+			echo " "
+			echo -e "\e[1;32m BACKUP ( $new.tar ) Created. \e[0m"
+			echo " "
+			echo " "
+		else
+			clear
+			echo " "
+			echo " "
+			echo -e "\e[1;32m BACKUP ( $new.tar ) NOT Created. => [INVALID NAME] -_-\e[0m"
+			echo " "
+			echo " 	"	
+		fi
     		;;
+
     		3) echo " "
     		echo "++++++++++----------Please Specify the Directory/File----------++++++++++"
     		echo " "
@@ -673,19 +730,35 @@ do
 				echo " "
 				echo " "
     		;;
+
     		4) echo " "
     		echo "++++++++++----------Please Specify the Archieve NAME----------++++++++++"
     		echo " "
     		read name
-				clear
-				echo " "
-				echo " "
-				echo -e "\e[1;32m Archieving BACKUP ( $name ). \e[0m"
-				echo " "
-				echo "CONTENTS Included ARE => "
-		tar -tvf $name
-		echo " "
+
+				check $name    							
+				out=$?									      
+
+				echo "----------------------------"
+				if [[ $out == 1 ]]
+				then
+					clear
+					echo " "
+					echo " "
+					echo -e "\e[1;32m Archieving BACKUP ( $name ). \e[0m"
+					echo " "
+					echo "CONTENTS Included ARE => "
+					tar -tvf $name
+					echo " "
+				else
+					clear
+					echo " "
+					echo " "
+					echo -e "\e[1;31m ARCHIVE NOT EXISTS. -_- \e[0m"
+					echo " "
+				fi
     		;;
+
     		5) echo " "
     		echo "++++++++++----------Please Specify the Archieve NAME----------++++++++++"
     		echo " "
@@ -697,6 +770,7 @@ do
 		tar -xvf $name
 		echo " "
     		;;
+
     		6) echo " "
     		echo "++++++++++----------Please Specify the Archieve NAME----------++++++++++"
     		echo " "
@@ -713,6 +787,7 @@ do
     		;;
     		esac
     	;;  
+
     	7) echo " "
     	echo "++++++++++----------SEARCH MENU -_- ----------++++++++++"
     	echo " "
@@ -722,6 +797,7 @@ do
     	read match
     		
     	case $match in
+
     		1) echo " "
     		echo "++++++++++----------Please Enter the Thing you want to search----------++++++++++"
     		echo " "
@@ -743,6 +819,7 @@ do
 		fi
 		echo " "
     		;;
+
     		2) echo " "
     		echo "++++++++++----------Please Enter the Thing you want to search----------++++++++++"
     		echo " "
@@ -767,6 +844,7 @@ do
 		esac
     	;;  	
     	8) echo " "
+
     	echo "++++++++++----------DETAIL Information Section----------++++++++++"
     	echo "Please Enter the name of File/Directory"
 	read filee
@@ -851,6 +929,7 @@ do
 	    	read match
 	    		
 	    	case $match in
+
 	    		1) echo " "
 	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
 	    		echo " "
@@ -868,7 +947,9 @@ do
 			echo " "
 	    		;;
 			esac
+
 	else
+
 		help $cmd > extraction_data.txt
 		extract extraction_data.txt
 
@@ -904,6 +985,7 @@ do
 			echo " "
 	    		;;
 			esac
+
 	fi		
     	;;  	
 
@@ -914,4 +996,5 @@ do
     	exit
     	;;    	
     	esac
+
 done
