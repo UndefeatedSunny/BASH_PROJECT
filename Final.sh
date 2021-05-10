@@ -44,6 +44,43 @@ function search_color_match(){
 
 ########################################################################################################################################################
 
+function extract(){
+
+cat $1 > solve.txt
+
+movement="ABOUT"
+
+echo " " > ABOUT.txt
+echo " " > OPTIONS.txt
+
+IFS=$'\n'
+
+for i in $(cat solve.txt) 
+do
+		if [[ $i == "    Options:" ]]
+		then 
+			movement="OPTIONS"
+		elif [[ $i == "    Exit Status:" ]]
+		then 
+			movement=""
+		fi
+
+
+		if [[ $movement == "ABOUT" ]]
+		then
+			echo $i >> ABOUT.txt
+		fi
+		
+
+		if [[ $movement == "OPTIONS" ]]
+		then
+			echo $i >> OPTIONS.txt
+		fi
+	done
+}
+
+########################################################################################################################################################
+
 function extraction(){
 
 cat $1 > solve
@@ -91,6 +128,7 @@ for i in $(cat solve)
 	done
 }
 
+########################################################################################################################################################
 
 function search_full(){
 
@@ -109,6 +147,8 @@ function search_full(){
 		cat solution.txt | egrep --color -w "$2"
 }
 
+########################################################################################################################################################
+
 function search_partial(){
 
 		echo " "
@@ -126,6 +166,40 @@ function search_partial(){
 		cat solution.txt | egrep --color "$2"
 
 }
+
+########################################################################################################################################################
+
+function search_fully(){
+
+		echo " "
+		if [[ $1 == 1 ]]
+		then
+			cat ABOUT.txt > solutions.txt
+		elif [[ $1 == 2 ]]
+		then
+			cat OPTIONS.txt > solutions.txt
+		fi
+
+		cat solutions.txt | egrep --color -w "$2"
+}
+
+########################################################################################################################################################
+
+function search_partially(){
+
+		echo " "
+		if [[ $1 == 1 ]]
+		then
+			cat ABOUT.txt > solutions.txt
+		elif [[ $1 == 2 ]]
+		then
+			cat OPTIONS.txt > solutions.txt
+		fi
+
+		cat solutions.txt | egrep --color "$2"
+
+}
+
 ########################################################################################################################################################
 
 echo " "
@@ -199,7 +273,6 @@ echo " "
 }
 
 ########################################################################################################################################################
-
 
 
 input=0
@@ -681,8 +754,18 @@ do
 
     	9) echo " "
 	clear
+
     	echo -e "\e[0;31m ++++++++++----------WELCOME TO E-mail SECTION----------++++++++++\e[0m"
     	echo " "
+	echo -e "\e[1;32m NOTE => Only 1 MAIL is sent at a Time. \e[0m"
+	echo " "
+
+	echo "Please ENTER the RECEIVER G-Mail Address."
+ 	read rcvr_gmail
+
+	ssmtp $rcvr_gmail
+	
+	exit
    	;;
 
 
@@ -699,42 +782,100 @@ do
     	echo " "
     	echo "Please Enter the Command you want to know"
 	read cmd
-	man $cmd > extract_data
-	extraction extract_data
 
-	echo " "
-    	echo "++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++"
-    	echo " "
-    	echo "1) NAME "
-    	echo "2) SYNOPSIS"
-	echo "3) DESCRIPTION"
+	flag=0
 
-	read option
+	which $cmd > verification
 
-	echo " "
-    	echo "Choose the type of SEARCHING you want :"
-    	echo "1) EXACT Match "
-    	echo "2) Partially Matched"
-    	read match
-    		
-    	case $match in
-    		1) echo " "
-    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
-    		echo " "
-		read search
+	string1=$(cat verification)
+
+	string2=$(cat verification | egrep "bin")
+
+	# echo $string1				For Verification Purpose.
+	# echo $string2
+
+	if [[ $string1 == $string2 && $string1 != "" ]]
+	then 
+		flag=1
+	else
+		flag=0
+	fi
+	
+	if [[ $flag == 1 ]]
+	then
+		man $cmd > extract_data
+		extraction extract_data
+
 		echo " "
-		search_full $option $search
+	    	echo "++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++"
+	    	echo " "
+	    	echo "1) NAME "
+	    	echo "2) SYNOPSIS"
+		echo "3) DESCRIPTION"
+
+		read option
+
 		echo " "
-    		;;
-    		2) echo " "
-    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
-    		echo " "
-		read search
+	    	echo "Choose the type of SEARCHING you want :"
+	    	echo "1) EXACT Match "
+	    	echo "2) Partially Matched"
+	    	read match
+	    		
+	    	case $match in
+	    		1) echo " "
+	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo " "
+			read search
+			echo " "
+			search_full $option $search
+			echo " "
+	    		;;
+	    		2) echo " "
+	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo " "
+			read search
+			echo " "
+			search_partial $option $search
+			echo " "
+	    		;;
+			esac
+	else
+		help $cmd > extraction_data.txt
+		extract extraction_data.txt
+
 		echo " "
-		search_partial $option $search
+	    	echo "++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++"
+	    	echo " "
+	    	echo "1) ABOUT "
+	    	echo "2) OPTIONS"
+
+		read option
+
 		echo " "
-    		;;
-		esac
+	    	echo "Choose the type of SEARCHING you want :"
+	    	echo "1) EXACT Match "
+	    	echo "2) Partially Matched"
+	    	read match
+	    		
+	    	case $match in
+	    		1) echo " "
+	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo " "
+			read search
+			echo " "
+			search_fully $option $search
+			echo " "
+	    		;;
+	    		2) echo " "
+	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo " "
+			read search
+			echo " "
+			search_partially $option $search
+			echo " "
+	    		;;
+			esac
+	fi		
     	;;  	
 
    
