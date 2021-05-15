@@ -217,6 +217,20 @@ function verification(){
 
 ########################################################################################################################################################
 
+function file_verification(){
+
+	match=$(echo $1 | egrep -o '^[[:alpha:]]+[.][[:alpha:]]+||^[[:alpha:]]+')
+
+	if [[ $1 == $match ]]
+	then 	
+		return 1
+	else
+		return 0
+	fi
+}
+
+########################################################################################################################################################
+
 echo " "
 echo " "
 echo -e "\e[1;31m***************  USER EASE MANAGER   *********************\e[0m"
@@ -329,12 +343,23 @@ do
 				if [[ $output == 1 ]]
 				then	
 					clear
-					mkdir $name
 					echo " "
 					echo " "
-					echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
-					echo " "
-					echo " "
+
+					check $name
+					presence=$?	
+								   
+					if [[ $presence == 1 ]]
+					then 
+						echo -e "\e[1;32m DIRECTORY $name NOT Created, i.e. [ ALREADY PRESENT ] \e[0m"
+						echo " "
+						echo " "
+					else
+						mkdir $name
+						echo -e "\e[1;32m DIRECTORY $name Created. \e[0m"
+						echo " "
+						echo " "
+					fi
 				else
 					clear
 					echo " "
@@ -352,7 +377,7 @@ do
 				echo "Enter the name of the File:"
 				read name
 
-				verification $name
+				file_verification $name
 				output=$?
 			
 				if [[ $output == 1 ]]
@@ -498,7 +523,7 @@ do
 						read newname
 
 
-						verification $newname
+						file_verification $newname
 						output=$?
 					
 						if [[ $output == 1 ]]
@@ -864,15 +889,14 @@ do
 
     	echo -e "\e[0;31m ++++++++++----------WELCOME TO E-mail SECTION----------++++++++++\e[0m"
     	echo " "
-	echo -e "\e[1;32m NOTE => Only 1 MAIL is sent at a Time. \e[0m"
 	echo " "
 
 	echo "Please ENTER the RECEIVER G-Mail Address."
  	read rcvr_gmail
 
-	ssmtp $rcvr_gmail
-	
-	exit
+	mailx $rcvr_gmail
+
+	clear
    	;;
 
 
@@ -989,7 +1013,6 @@ do
 	fi		
     	;;  	
 
-   
     	12) echo " "
     	echo -e "\e[0;31m ++++++++++----------Exiting----------++++++++++\e[0m"
     	echo " "
