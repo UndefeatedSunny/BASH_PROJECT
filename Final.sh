@@ -238,9 +238,12 @@ echo " "
 
 ########################################################################################################################################################
 
-echo $PWD > $HOME/../../path    # Everytime new path wll be Consider.
+echo $PWD > $HOME/../../path    # Everytime new path wll be Consider. 
 
 cd $HOME/Desktop/
+
+echo -e "\e[1;32m PATH OF ALL FILES AND DIRECTORIES => \e[0m" 
+    	echo " "
 tree
 
 cd ../../../
@@ -248,9 +251,13 @@ cd ../../../
 back_position=$(cat path)
 
 cd $back_position
-
-
+    	echo " "
+    	echo " "
+echo -e "\e[1;32m CURRENT POSITION => \e[0m" $PWD
+    	echo " "
+    
 echo -e "\e[1;33m                                =================>>>>>>>>>>>>>>>        PRESS ANYTHING YOU WILL CAME 1 STEP BACK acc'n to File Manager UI. \e[0m"
+    	echo " "
 
 ########################################################################################################################################################
 
@@ -305,7 +312,7 @@ echo " "
 
 
 input=0
-while [ $input -le 12 ]
+while [ $input -le 11 ]
 
 do
 	echo -e "\e[1;31m                                Press the following to : \e[0m"
@@ -313,15 +320,14 @@ do
 	echo -e "\e[1;32m 1) Create a new Directory/File. \e[0m"
 	echo -e "\e[1;33m 2) Modify a Directory/File. \e[0m"
 	echo -e "\e[1;34m 3) Navigate into Directory. \e[0m"
-	echo -e "\e[1;35m 4) Listing directories. \e[0m"
-	echo -e "\e[1;36m 5) Track Everything.  \e[0m"
-	echo -e "\e[1;37m 6) BACKUP -_-. \e[0m"
-	echo -e "\e[1;32m 7) SEARCH \e[0m"
-	echo -e "\e[1;33m 8) DETAILED Information \e[0m"
-	echo -e "\e[1;34m 9) Email. \e[0m"
-	echo -e "\e[1;36m 10) GAME.  \e[0m"
-	echo -e "\e[1;35m 11) HELP. \e[0m"
-	echo -e "\e[1;31m 12) EXIT. \e[0m"
+	echo -e "\e[1;36m 4) Track Everything.  \e[0m"
+	echo -e "\e[1;37m 5) BACKUP -_-. \e[0m"
+	echo -e "\e[1;32m 6) SEARCH \e[0m"
+	echo -e "\e[1;33m 7) DETAILED Information \e[0m"
+	echo -e "\e[1;34m 8) Email. \e[0m"
+	echo -e "\e[1;36m 9) GAME.  \e[0m"
+	echo -e "\e[1;35m 10) HELP. \e[0m"
+	echo -e "\e[1;31m 11) EXIT. \e[0m"
 	read input
 
 	case $input in
@@ -399,7 +405,6 @@ do
 				fi
 			fi
 		    ;;
-
 			2) echo " "
 			echo -e "\e[1;36m++++++++++----------Modification of Directory/File----------++++++++++ \e[0m"
 			echo " "			
@@ -412,7 +417,7 @@ do
 				read orgdir
 
 				check $orgdir
-				#out=$(check $orgdir)     							METHOD-1
+				#out=$(check $orgdir)     						      	METHOD-1
 				out=$?									      # METHOD-2
 
 				echo "----------------------------"
@@ -425,6 +430,8 @@ do
 					echo -e "\e[1;32m 2) Copy directory to another. \e[0m"
 					echo -e "\e[1;34m 3) Move directory. \e[0m"
 					echo -e "\e[1;35m 4) Delete directory. \e[0m"
+					echo -e "\e[1;35m 5) Listing directories. \e[0m"
+
 					read modch
 
 					case $modch in
@@ -491,6 +498,19 @@ do
 						echo -e "\e[1;34m DELETED Directory is $orgdir \e[0m"
 						;;
 
+					    	5) clear
+						echo " "
+						echo " "
+					    	echo -e "\e[1;30m ++++++++++----------Listing of Directories----------++++++++++ \e[0m"
+					    	echo " "
+						echo " "
+						IFS=$'\n'
+						for i in $(ls -hl) 
+						do 
+							echo $i | egrep '^[d]' 
+						done
+					    	echo " "
+						echo " "
 					esac
 				else
 					echo "DIRECTORY NOT EXIST"
@@ -513,6 +533,7 @@ do
 					echo -e "\e[1;33m 2) Copy contents from ONE file to another. \e[0m"
 					echo -e "\e[1;34m 3) Move File. \e[0m"
 					echo -e "\e[1;35m 4) Delete File. \e[0m"
+					echo -e "\e[1;35m 5) Listing Files. \e[0m"
 					read modch
 
 					case $modch in
@@ -619,6 +640,19 @@ do
 						rm $orgdir
 						echo -e "\e[1;34m DELETED Directory is $orgdir \e[0m"
 						;;
+					    	5) clear
+						echo " "
+						echo " "
+					    	echo -e "\e[1;35m ++++++++++----------Listing of Files----------++++++++++ \e[0m"
+					    	echo " "
+						echo " "
+						IFS=$'\n'
+						for i in $(ls -hl) 
+						do 
+							echo $i | egrep '^[-]' 
+						done
+					    	echo " "
+						echo " "
 					esac
 				else
 					echo "FILE NOT EXIST"
@@ -656,35 +690,18 @@ do
     	    ;;
 
     	4) echo " "
-    	echo -e "\e[1;30m ++++++++++----------Listing of Directories----------++++++++++ \e[0m"
+	clear
     	echo " "
-    	echo -e "\e[1;31m Enter your choice for method of listing : \e[0m"
-    	echo -e "\e[1;32m 1) List of directories.  \e[0m"
-    	echo -e "\e[1;33m 2) List of directories and their details. \e[0m"
-    	read lisch
-    		
-    	case $lisch in
-    		1) echo " "
-    		echo -e "\e[1;32m ++++++++++----------List of directories----------++++++++++ \e[0m"
-    		echo " "
-    		ls
-		echo " "
-    		;;
-    		2) echo " "
-    		echo -e "\e[1;33m ++++++++++----------Detailed List of directories----------++++++++++ \e[0m"
-    		echo " "
-    		ls -Alh
-		echo " "
-    		;;
-	esac
-    	;;
-
-    	5) echo " "
+    	echo " "
+    	echo " "
+	echo -e "\e[1;32m CURRENT POSITION => \e[0m" $PWD
     	tree
+    	echo " "
+    	echo " "
     	echo " "
 	;;
 
-	6) echo " "
+	5) echo " "
     	echo -e "\e[1;31m ++++++++++----------BACKUP (-_-)----------++++++++++ \e[0m"
     	echo " "
     	echo -e "\e[1;32m Enter the TYPE of Backup you wanted. \e[0m"
@@ -813,7 +830,7 @@ do
     		esac
     	;;  
 
-    	7) echo " "
+    	6) echo " "
     	echo "++++++++++----------SEARCH MENU -_- ----------++++++++++"
     	echo " "
     	echo "Choose the type of SEARCHING you want :"
@@ -868,7 +885,7 @@ do
     		;;
 		esac
     	;;  	
-    	8) echo " "
+    	7) echo " "
 
     	echo "++++++++++----------DETAIL Information Section----------++++++++++"
     	echo "Please Enter the name of File/Directory"
@@ -884,7 +901,7 @@ do
 
     	;;
 
-    	9) echo " "
+    	8) echo " "
 	clear
 
     	echo -e "\e[0;31m ++++++++++----------WELCOME TO E-mail SECTION----------++++++++++\e[0m"
@@ -900,7 +917,7 @@ do
    	;;
 
 
-    	10) echo " "
+    	9) echo " "
 	clear
     	echo -e "\e[0;31m ++++++++++----------WELCOME TO GAME SECTION----------++++++++++\e[0m"
     	echo " "
@@ -908,7 +925,7 @@ do
 	clear
     	;; 
 
-    	11) echo " "
+    	10) echo " "
     	echo -e "\e[0;31m ++++++++++----------HELP SECTION----------++++++++++\e[0m"
     	echo " "
     	echo "Please Enter the Command you want to know"
@@ -1013,7 +1030,8 @@ do
 	fi		
     	;;  	
 
-    	12) echo " "
+   
+    	11) echo " "
     	echo -e "\e[0;31m ++++++++++----------Exiting----------++++++++++\e[0m"
     	echo " "
     	exit
