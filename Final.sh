@@ -831,23 +831,25 @@ do
     	;;  
 
     	6) echo " "
-    	echo "++++++++++----------SEARCH MENU -_- ----------++++++++++"
+    	echo -e "\e[1;32m++++++++++----------SEARCH MENU -_- ----------++++++++++  \e[0m"
     	echo " "
-    	echo "Choose the type of SEARCHING you want :"
-    	echo "1) EXACT Match "
-    	echo "2) Partially Matched"
+    	echo -e "\e[1;35mChoose the type of SEARCHING you want :  \e[0m"
+    	echo -e "\e[1;34m1) EXACT Match  \e[0m"
+    	echo -e "\e[1;33m2) Partially Matched  \e[0m"
     	read match
     		
     	case $match in
 
-    		1) echo " "
-    		echo "++++++++++----------Please Enter the Thing you want to search----------++++++++++"
+    		1) clear
+		echo " "
+		echo " "
+    		echo -e "\e[1;32m++++++++++----------Please Enter the Thing you want to search----------++++++++++  \e[0m"
     		echo " "
-		echo "PRESS 1 for Directory OR 2 for files"
+		echo -e "\e[1;33mPRESS 1 for Directory OR 2 for files  \e[0m"
 		read want
-		echo "Please Specify the initial Position for Searching Purpose"
+		echo -e "\e[1;37mPlease Specify the initial Position for Searching Purpose  \e[0m"
 		read position
-		echo "Please Specify the FILE / DIRECTORY to search"
+		echo -e "\e[1;36mPlease Specify the FILE / DIRECTORY to search  \e[0m"
 		read search
 		echo " "
 		if [[ $want == 1 ]]
@@ -862,14 +864,16 @@ do
 		echo " "
     		;;
 
-    		2) echo " "
-    		echo "++++++++++----------Please Enter the Thing you want to search----------++++++++++"
+    		2) clear
+		echo " "
+		echo " "
+    		echo -e "\e[1;32m++++++++++----------Please Enter the Thing you want to search----------++++++++++  \e[0m"
     		echo " "
-		echo "PRESS 1 for Directory OR 2 for files"
+		echo -e "\e[1;33mPRESS 1 for Directory OR 2 for files  \e[0m"
 		read want
-		echo "Please Specify the initial Position for Searching Purpose"
+		echo -e "\e[1;35mPlease Specify the initial Position for Searching Purpose  \e[0m"
 		read position
-		echo "Please Specify the FILE / DIRECTORY to search"
+		echo -e "\e[1;37mPlease Specify the FILE / DIRECTORY to search  \e[0m"
 		read search
 		echo " "
 		if [[ $want == 1 ]]
@@ -885,17 +889,17 @@ do
     		;;
 		esac
     	;;  	
-    	7) echo " "
-
-    	echo "++++++++++----------DETAIL Information Section----------++++++++++"
-    	echo "Please Enter the name of File/Directory"
+    	7) clear
+    	echo -e "\e[1;32m++++++++++----------DETAIL Information Section----------++++++++++\e[0m"
+	echo " "
+	echo " "
+    	echo -e "\e[1;36mPlease Enter the name of File/Directory\e[0m"
 	read filee
 	echo " "
-
+	echo " "
 	stat $filee > data	
 
 	# NOW WRITING A AWK FILE FOR THAT
-	clear
 	file $filee
 	awk -f Model_1_1.awk data  # Hence Solved
 
@@ -904,11 +908,11 @@ do
     	8) echo " "
 	clear
 
-    	echo -e "\e[0;31m ++++++++++----------WELCOME TO E-mail SECTION----------++++++++++\e[0m"
+    	echo -e "\e[1;32m ++++++++++----------WELCOME TO E-mail SECTION----------++++++++++\e[0m"
     	echo " "
 	echo " "
 
-	echo "Please ENTER the RECEIVER G-Mail Address."
+	echo -e "\e[1;36mPlease ENTER the RECEIVER G-Mail Address.\e[0m"
  	read rcvr_gmail
 
 	mailx $rcvr_gmail
@@ -919,16 +923,16 @@ do
 
     	9) echo " "
 	clear
-    	echo -e "\e[0;31m ++++++++++----------WELCOME TO GAME SECTION----------++++++++++\e[0m"
+    	echo -e "\e[1;31m ++++++++++----------WELCOME TO GAME SECTION----------++++++++++\e[0m"
     	echo " "
 	game
 	clear
     	;; 
 
     	10) echo " "
-    	echo -e "\e[0;31m ++++++++++----------HELP SECTION----------++++++++++\e[0m"
+    	echo -e "\e[1;31m ++++++++++----------HELP SECTION----------++++++++++ \e[0m"
     	echo " "
-    	echo "Please Enter the Command you want to know"
+    	echo -e "\e[1;32mPlease Enter the Command you want to know \e[0m"
 	read cmd
 
 	flag=0
@@ -955,24 +959,24 @@ do
 		extraction extract_data
 
 		echo " "
-	    	echo "++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++"
+	    	echo -e "\e[1;36m++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++ \e[0m"
 	    	echo " "
-	    	echo "1) NAME "
-	    	echo "2) SYNOPSIS"
-		echo "3) DESCRIPTION"
+	    	echo -e "\e[1;37m1) NAME  \e[0m"
+	    	echo -e "\e[1;36m2) SYNOPSIS \e[0m"
+		echo -e "\e[1;33m3) DESCRIPTION \e[0m"
 
 		read option
 
 		echo " "
-	    	echo "Choose the type of SEARCHING you want :"
-	    	echo "1) EXACT Match "
-	    	echo "2) Partially Matched"
+	    	echo -e "\e[1;32mChoose the type of SEARCHING you want : \e[0m"
+	    	echo -e "\e[1;33m1) EXACT Match  \e[0m"
+	    	echo -e "\e[1;34m2) Partially Matched \e[0m"
 	    	read match
 	    		
 	    	case $match in
 
 	    		1) echo " "
-	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo -e "\e[1;32m++++++++++----------Please Enter the TEXT you want to search----------++++++++++ \e[0m"
 	    		echo " "
 			read search
 			echo " "
@@ -980,7 +984,7 @@ do
 			echo " "
 	    		;;
 	    		2) echo " "
-	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo -e "\e[1;32m++++++++++----------Please Enter the TEXT you want to search----------++++++++++ \e[0m"
 	    		echo " "
 			read search
 			echo " "
@@ -995,22 +999,22 @@ do
 		extract extraction_data.txt
 
 		echo " "
-	    	echo "++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++"
+	    	echo -e "\e[1;32m++++++++++---------- SEARCH IN WHICH SECTION ----------++++++++++ \e[0m"
 	    	echo " "
-	    	echo "1) ABOUT "
-	    	echo "2) OPTIONS"
+	    	echo -e "\e[1;36m1) ABOUT \e[0m"
+	    	echo -e "\e[1;37m2) OPTIONS \e[0m"
 
 		read option
 
 		echo " "
-	    	echo "Choose the type of SEARCHING you want :"
-	    	echo "1) EXACT Match "
-	    	echo "2) Partially Matched"
+	    	echo -e "\e[1;34mChoose the type of SEARCHING you want : \e[0m"
+	    	echo -e "\e[1;37m1) EXACT Match "
+	    	echo -e "\e[1;30m2) Partially Matched"
 	    	read match
 	    		
 	    	case $match in
 	    		1) echo " "
-	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo -e "\e[1;32m++++++++++----------Please Enter the TEXT you want to search----------++++++++++ \e[0m"
 	    		echo " "
 			read search
 			echo " "
@@ -1018,7 +1022,7 @@ do
 			echo " "
 	    		;;
 	    		2) echo " "
-	    		echo "++++++++++----------Please Enter the TEXT you want to search----------++++++++++"
+	    		echo -e "\e[1;32m++++++++++----------Please Enter the TEXT you want to search----------++++++++++ \e[0m"
 	    		echo " "
 			read search
 			echo " "
