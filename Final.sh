@@ -144,7 +144,10 @@ function search_full(){
 			cat DESCRIPTION.txt > solution.txt
 		fi
 
-		cat solution.txt | egrep --color -w "$2"
+		reg=$(echo "$2" | sed '/-/s/-/[-]/g')
+
+		cat solution.txt | egrep --color -w "$reg"
+
 }
 
 ########################################################################################################################################################
@@ -162,8 +165,8 @@ function search_partial(){
 		then
 			cat DESCRIPTION.txt > solution.txt
 		fi
-
-		cat solution.txt | egrep --color "$2"
+		reg=$(echo "$2" | sed '/-/s/-/[-]/g')
+		cat solution.txt | egrep --color "$reg"
 
 }
 
@@ -204,7 +207,7 @@ function search_partially(){
 
 function verification(){
 
-	match=$(echo $1 | egrep -o '^[[:alpha:]]+[^^.]')
+	match=$(echo $1 | egrep -o '^[[:alpha:]]+[^.]')
 
 	if [[ $1 == $match ]]
 	then 
