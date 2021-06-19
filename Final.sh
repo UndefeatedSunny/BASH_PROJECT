@@ -721,13 +721,30 @@ do
     		echo "++++++++++----------Please Specify the Directory/File----------++++++++++"
     		echo " "
 		read old
-    		tar -cvf $old.tar $old
-				clear
-				echo " "
-				echo " "
-				echo -e "\e[1;32m BACKUP ( $old.tar ) Created. \e[0m"
-				echo " "
-				echo " "
+
+
+					echo " "
+					echo " "
+
+					check $old
+					presence=$?	
+								   
+					if [[ $presence == 1 ]]
+					then 
+				    		tar -cvf $old.tar $old
+								clear
+								echo " "
+								echo " "
+								echo -e "\e[1;32m BACKUP ( $old.tar ) Created. \e[0m"
+								echo " "
+								echo " "
+					else
+						clear
+						echo -e "\e[1;32m $old NOT Exists in CURRENT DIRECTORY. [BACKUP NOT POSSIBLE] \e[0m"
+						echo " "
+						echo " "
+					fi
+
     		;;
 
     		2) echo " "
@@ -852,15 +869,19 @@ do
 		read want
 		echo -e "\e[1;37mPlease Specify the initial Position for Searching Purpose  \e[0m"
 		read position
-		echo -e "\e[1;36mPlease Specify the FILE / DIRECTORY to search  \e[0m"
-		read search
 		echo " "
 		if [[ $want == 1 ]]
 		then
+			echo -e "\e[1;36mPlease Specify the DIRECTORY to search  \e[0m"
+			read search
+			echo " "
     			find $position -type d -name $search > full_search_dir
 			search_color_match full_search_dir $search
 		elif [[ $want == 2 ]]
 		then
+			echo -e "\e[1;36mPlease Specify the FILE to search  \e[0m"
+			read search
+			echo " "
 			find $position -type f -name $search > full_search_file
 			search_color_match full_search_file $search
 		fi
@@ -876,15 +897,19 @@ do
 		read want
 		echo -e "\e[1;35mPlease Specify the initial Position for Searching Purpose  \e[0m"
 		read position
-		echo -e "\e[1;37mPlease Specify the FILE / DIRECTORY to search  \e[0m"
-		read search
 		echo " "
 		if [[ $want == 1 ]]
 		then
+			echo -e "\e[1;37mPlease Specify the DIRECTORY to search  \e[0m"
+			read search
+			echo " "
     			find $position -type d -iname "*$search*" > half_search_dir
 			search_color_match half_search_dir $search
 		elif [[ $want == 2 ]]
 		then
+			echo -e "\e[1;37mPlease Specify the FILE to search  \e[0m"
+			read search
+			echo " "
 			find $position -type f -iname "*$search*" > half_search_file
 			search_color_match half_search_file $search
 		fi
